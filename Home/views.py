@@ -35,20 +35,22 @@ def login(request):
     
 @api_view(['POST'])
 def signup(request):
-    email = request.data.get('email')
-    password = request.data.get('password')
+    email = request.POST.get('email')
+    password = request.POST.get('password')
     if not email or not password:
         return Response({'error': 'Email and password are required.'}, status=status.HTTP_400_BAD_REQUEST)
     user = User.objects.filter(email=email).first()
     if user:
         return Response({'error': 'User already exists.'}, status=status.HTTP_400_BAD_REQUEST)
 
-    user = User.objects.create(email=email)
-    user.otp = str(random.randint(100000, 999999))
+    user = User.objects.create(email=email,username=email)
+    # user.otp = str(random.randint(100000, 999999))
     user.set_password(password)
+    user.is_verified = False
     user.save()
-    send_email_otp(user, user.otp)
-    return Response({'message': 'User created successfully.'}, status=status.HTTP_201_CREATED)
+    # # send_email_otp(user, user.otp)
+    serializer = UserSerializer(user)
+    return Response({'message': 'User created successfully.','data':serializer.data}, status=status.HTTP_201_CREATED)
     
     
 @api_view(['POST'])
