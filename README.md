@@ -86,7 +86,7 @@ PortfolioPilor is an AI-powered financial portfolio advisor designed to provide 
 ### Installation Steps
 1. Clone the repository:
 
-git clone https://github.com/your-username/PortfolioPilor.git
+git clone repo
 cd PortfolioPilor
 
 
