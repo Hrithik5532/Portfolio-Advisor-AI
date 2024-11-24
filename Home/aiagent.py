@@ -46,7 +46,7 @@ def Create_env():
                 "top_p": 0.9,
             },
             "env": {
-                "OPENAI_API_KEY": "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"
+                "OPENAI_API_KEY": os.getenv('OPENAI_API_KEY')
             }
         },
     )
